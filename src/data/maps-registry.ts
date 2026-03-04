@@ -3,7 +3,6 @@ import type { MapConfig } from "@/types";
 /** Entrada del registro: configuración del mapa + nombre para la UI */
 export interface MapRegistryEntry {
   config: MapConfig;
-  /** Nombre legible (ej. "Volcán", "Bosque") */
   name: string;
 }
 

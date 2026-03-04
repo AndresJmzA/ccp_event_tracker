@@ -75,22 +75,28 @@ function ImageOverlaysWhenReady({
     }
     let rafId2: number | null = null;
     let rafId3: number | null = null;
+    let rafId4: number | null = null;
     const pane = map.getPane?.("overlayPane");
     const scheduleOverlaysReady = () => {
       rafId2 = requestAnimationFrame(() => {
         rafId3 = requestAnimationFrame(() => {
-          const paneAgain = map.getPane?.("overlayPane");
-          if (paneAgain?.appendChild) setOverlaysReady(true);
+          rafId4 = requestAnimationFrame(() => {
+            const paneAgain = map.getPane?.("overlayPane");
+            const container = map.getContainer?.();
+            if (paneAgain?.appendChild && container?.isConnected) setOverlaysReady(true);
+          });
         });
       });
+    };
+    const cancelAll = () => {
+      if (rafId2 != null) cancelAnimationFrame(rafId2);
+      if (rafId3 != null) cancelAnimationFrame(rafId3);
+      if (rafId4 != null) cancelAnimationFrame(rafId4);
     };
     if (pane && typeof pane.appendChild === "function") {
       setMapReady(true);
       scheduleOverlaysReady();
-      return () => {
-        if (rafId2 != null) cancelAnimationFrame(rafId2);
-        if (rafId3 != null) cancelAnimationFrame(rafId3);
-      };
+      return cancelAll;
     }
     const rafId = requestAnimationFrame(() => {
       setMapReady(true);
@@ -98,8 +104,7 @@ function ImageOverlaysWhenReady({
     });
     return () => {
       cancelAnimationFrame(rafId);
-      if (rafId2 != null) cancelAnimationFrame(rafId2);
-      if (rafId3 != null) cancelAnimationFrame(rafId3);
+      cancelAll();
     };
   }, [map, isMapVisible]);
 
@@ -123,11 +128,13 @@ function ImageOverlaysWhenReady({
   }, [source]);
 
   const paneAtRender = map?.getPane?.("overlayPane");
+  const container = map?.getContainer?.();
   const paneSafe =
     paneAtRender != null &&
     typeof (paneAtRender as HTMLDivElement).appendChild === "function";
+  const mapInDom = container?.isConnected === true;
   const safeToRender = Boolean(
-    isMapVisible && mapReady && overlaysReady && paneSafe
+    isMapVisible && mapReady && overlaysReady && paneSafe && mapInDom
   );
 
   if (!safeToRender) return null;

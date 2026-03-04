@@ -18,8 +18,8 @@ export const EVENTS: GameEvent[] = [
     gameCoordinates: "441, 241",
     schedule: {
       type: "recurring",
-      intervalMinutes: 10080,
-      offsetMinutes: 9835,
+      dayOfWeek: 3,
+      minutesFromMidnight: 19 * 60 + 55,
     },
   },
   {
@@ -35,8 +35,8 @@ export const EVENTS: GameEvent[] = [
     gameCoordinates: "441, 241",
     schedule: {
       type: "recurring",
-      intervalMinutes: 10080,
-      offsetMinutes: 4075,
+      dayOfWeek: 6,
+      minutesFromMidnight: 18 * 60 + 55,
     },
   },
   {
@@ -52,8 +52,8 @@ export const EVENTS: GameEvent[] = [
     gameCoordinates: "455, 241",
     schedule: {
       type: "recurring",
-      intervalMinutes: 10080,
-      offsetMinutes: 1195,
+      dayOfWeek: 4,
+      minutesFromMidnight: 19 * 60 + 55,
     },
   },
   {
@@ -62,7 +62,7 @@ export const EVENTS: GameEvent[] = [
     description:
       "Puedes participar una vez por semana. Habla con General Bravery para ingresar. Misma mecánica que el Monthly PK War: arena por nivel, tres mapas, último en pie gana.",
     notes:
-      "- Horario: sábados 22:00 (hora del servidor)\n- Entrada: hablar con el NPC General Bravery (Twin City 446,246)\n- Premios por nivel: 1-99 → 215 CPs, 1 EXP Ball, Class 1 Money Bag (300k)\n- Premios 100-119: 215 CPs, 2 EXP Balls, Class 2 (800k)\n- Premios 120-129: 215 CPs, 3 EXP Balls, Class 3 (1.2M)\n- Premios 130+: 215 CPs, 5 EXP Balls, Class 4 (1.8M) + HALO\n- Tener cuidado al salir del torneo, ya que sales en el centro de dragon y en modo pk, por lo que te puedes poner rojo",
+      "- Horario: sábados 20:00 (hora del servidor)\n- Entrada: hablar con el NPC General Bravery (Twin City 446,246)\n- Premios por nivel: 1-99 → 215 CPs, 1 EXP Ball, Class 1 Money Bag (300k)\n- Premios 100-119: 215 CPs, 2 EXP Balls, Class 2 (800k)\n- Premios 120-129: 215 CPs, 3 EXP Balls, Class 3 (1.2M)\n- Premios 130+: 215 CPs, 5 EXP Balls, Class 4 (1.8M) + HALO\n- Tener cuidado al salir del torneo, ya que sales en el centro de dragon y en modo pk, por lo que te puedes poner rojo",
     type: "MAIN",
     mapId: "twin_city_map",
     location: { x: 980.5, y: 758.6329742712617 },
@@ -70,7 +70,7 @@ export const EVENTS: GameEvent[] = [
     schedule: {
       type: "weeklySlots",
       daysOfWeek: [6],
-      slotsMinutesFromMidnight: [22 * 60],
+      slotsMinutesFromMidnight: [20 * 60],
     },
   },
   {
@@ -102,9 +102,9 @@ export const EVENTS: GameEvent[] = [
     location: { x: 1111.5, y: 780.7864369154627 },
     gameCoordinates: "436, 243",
     schedule: {
-      type: "recurring",
-      intervalMinutes: 1440,
-      offsetMinutes: 0,
+      type: "weeklySlots",
+      daysOfWeek: [1, 2, 3, 4, 5],
+      slotsMinutesFromMidnight: [19 * 60],
     },
   },
   {
@@ -120,8 +120,8 @@ export const EVENTS: GameEvent[] = [
     gameCoordinates: "412, 242",
     schedule: {
       type: "recurring",
-      intervalMinutes: 10080,
-      offsetMinutes: 2935,
+      dayOfWeek: 5,
+      minutesFromMidnight: 19 * 60 + 55,
     },
   },
   {
@@ -147,15 +147,15 @@ export const EVENTS: GameEvent[] = [
     description:
       "Entra al área de Guild hablando con el Guild Controller (Twin City 350,337). Cruza el puente hasta la fortaleza del Guild Pole (90,100). Solo puede atacarse durante la guerra: mantén Ctrl y clic en el Pole. El clan que más daño cause al Pole se convierte en dueño de la zona; recompensas incluyen control del NPC Guild Conductress, 5.000 CPs (Guild Beast) y Estatua de Clan. El Pole y la puerta se reconstruyen tras cada captura; los fantasmas reviven cada media hora o con Water Taoists.",
     notes:
-      "- Horario: domingo 13:00–18:00 (hora del servidor)\n- Entrada: Guild Controller (Twin City 350,337)\n- Guild Pole en la fortaleza (90,100); atacar con Ctrl + clic\n- Guerreros y Trojans daño; Fire Taoists y Archers defienden; Water Taoists reviven\n- Recompensas: control Guild Conductress, 5.000 CPs (Guild Beast), Estatua de Clan\n- Atacar el Pole da dinero al clan; si Guild Fund llega a 0, el Pole recibe 10x más daño\n- El clan que capture el Pole recibe el 10% del Guild Fund del clan anterior\n- Guild Funds: donaciones de miembros; reducen pérdida de EXP al morir en PK",
+      "- Horario: domingo 16:00–18:00 (hora del servidor)\n- Entrada: Guild Controller (Twin City 350,337)\n- Guild Pole en la fortaleza (90,100); atacar con Ctrl + clic\n- Guerreros y Trojans daño; Fire Taoists y Archers defienden; Water Taoists reviven\n- Recompensas: control Guild Conductress, 5.000 CPs (Guild Beast), Estatua de Clan\n- Atacar el Pole da dinero al clan; si Guild Fund llega a 0, el Pole recibe 10x más daño\n- El clan que capture el Pole recibe el 10% del Guild Fund del clan anterior\n- Guild Funds: donaciones de miembros; reducen pérdida de EXP al morir en PK",
     type: "MAIN",
     mapId: "twin_city_map",
     location: { x: 783, y: 768.2250081880709 },
     gameCoordinates: "350, 337",
     schedule: {
       type: "recurring",
-      intervalMinutes: 10080,
-      offsetMinutes: 5400,
+      dayOfWeek: 0,
+      minutesFromMidnight: 16 * 60,
     },
   },
   {
@@ -214,7 +214,7 @@ export const EVENTS: GameEvent[] = [
     schedule: {
       type: "recurring",
       intervalMinutes: 60,
-      offsetMinutes: 5 * 60 + 27,
+      offsetMinutes: 27,
     },
   },
   {
@@ -233,7 +233,7 @@ export const EVENTS: GameEvent[] = [
     schedule: {
       type: "recurring",
       intervalMinutes: 60,
-      offsetMinutes: 5 * 60 + 27,
+      offsetMinutes: 27,
     },
   },
   {
@@ -375,8 +375,8 @@ export const EVENTS: GameEvent[] = [
     images: ["/flames_1.png", "/flames_2.png"],
     schedule: {
       type: "recurring",
-      intervalMinutes: 10080,
-      offsetMinutes: 5580,
+      dayOfWeek: 0,
+      minutesFromMidnight: 16 * 60,
     },
   },
 ];

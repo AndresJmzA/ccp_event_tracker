@@ -43,14 +43,19 @@ export interface FixedSchedule {
 }
 
 /**
- * Programa recurrente: se repite en un intervalo con offset opcional.
- * La referencia es domingo 00:00 hora servidor; offsetMinutes = minutos desde ahí (ej. 9835 = sábado 19:55 servidor).
+ * Programa recurrente: semanal (día + hora) o por intervalo (ej. cada hora a los :27).
+ * Semanal: día y hora en servidor, se calcula desde "hoy servidor".
+ * Intervalo: cada intervalMinutes, a los offsetMinutes pasados de la hora (ej. 60 y 27 = cada hora a los :27).
  */
 export interface RecurringSchedule {
   type: "recurring";
-  /** Intervalo entre ocurrencias en minutos (ej. 10080 = 1 semana) */
-  intervalMinutes: number;
-  /** Minutos desde domingo 00:00 hora servidor para la ocurrencia en el ciclo (opcional) */
+  /** Semanal: día en servidor (0 = Domingo … 6 = Sábado). Si se usa, también minutesFromMidnight. */
+  dayOfWeek?: number;
+  /** Semanal: minutos desde medianoche (hora servidor). Ej. 19:55 → 1195 */
+  minutesFromMidnight?: number;
+  /** Por intervalo: cada N minutos (ej. 60 = cada hora). Si se usa, también offsetMinutes. */
+  intervalMinutes?: number;
+  /** Por intervalo: minutos pasados de la hora (0–59). Ej. 27 = a los :27 de cada hora. */
   offsetMinutes?: number;
 }
 
