@@ -4,13 +4,15 @@ import { isFixedSchedule, isMonthlySchedule, isRecurringSchedule, isWeeklySlotsS
 const MINUTE_MS = 60 * 1000;
 /** Colombia: UTC-5. 20:00 Bogotá = 01:00 UTC (día siguiente). */
 const BOGOTA_UTC_OFFSET_HOURS = 5;
+/** Domingo 00:00 hora servidor (Bogotá) como referencia para RECURRING semanal. Jan 5 1970 = domingo. */
+const REFERENCE_SERVER_SUNDAY_MS = Date.UTC(1970, 0, 5, BOGOTA_UTC_OFFSET_HOURS, 0, 0);
 
 /**
  * Obtiene la próxima ocurrencia de un evento a partir de una fecha de referencia (p. ej. "ahora" del usuario).
  * Cálculos internos en UTC (timestamps).
  *
  * - FIXED: devuelve la fecha fija `at`. Si ya pasó, se devuelve igual (la UI puede marcar como "terminado").
- * - RECURRING: devuelve la siguiente ocurrencia según intervalMinutes y offsetMinutes (epoch UTC).
+ * - RECURRING: offsetMinutes = minutos desde domingo 00:00 hora servidor; devuelve la siguiente ocurrencia.
  * - MONTHLY: devuelve el próximo día del mes a la hora indicada (en hora del servidor).
  * - WEEKLY_SLOTS: devuelve el próximo slot en los días y horas definidos (hora servidor).
  */
@@ -35,17 +37,13 @@ export function getNextOccurrence(event: GameEvent, userNow: Date): Date {
   }
 
   if (isRecurringSchedule(schedule)) {
-    const offsetMs = (schedule.offsetMinutes ?? 0) * MINUTE_MS;
+    // offsetMinutes = minutos desde domingo 00:00 hora servidor (ej. 9835 = sábado 19:55)
+    const offsetMs = REFERENCE_SERVER_SUNDAY_MS + (schedule.offsetMinutes ?? 0) * MINUTE_MS;
     const intervalMs = schedule.intervalMinutes * MINUTE_MS;
     const nowMs = userNow.getTime();
 
-    // Ocurrencias: epoch + offset + k * interval (k = 0, 1, 2, ...)
-    const elapsedSinceEpoch = nowMs - offsetMs;
-    const k =
-      elapsedSinceEpoch < 0
-        ? 0
-        : Math.ceil(elapsedSinceEpoch / intervalMs);
-
+    const elapsed = nowMs - offsetMs;
+    const k = elapsed < 0 ? 0 : Math.ceil(elapsed / intervalMs);
     const nextMs = offsetMs + k * intervalMs;
     return new Date(nextMs);
   }
