@@ -150,6 +150,7 @@ export default function Home() {
           <div className="flex h-full w-full flex-col border-l border-white/10 bg-surface/95 shadow-2xl backdrop-blur z-20 shrink-0 md:w-[400px]">
             <EventDetailsDrawer
               event={displayEvent!}
+              now={now}
               onClose={handleCloseDetails}
               onGoToMap={handleGoToMap}
               onNavigateToLinkedEvent={handleNavigateToLinkedEvent}
@@ -168,6 +169,7 @@ export default function Home() {
           <Sidebar
             events={sortedEvents}
             selectedEvent={displayEvent}
+            nextMainEvent={nextMain}
             onSelectEvent={handleSelectEvent}
             now={now}
             activeMapId={activeMapId}

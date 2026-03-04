@@ -6,6 +6,7 @@ import { X, Locate, ChevronLeft, ChevronRight, DoorOpen, MapPin } from "lucide-r
 import type { GameEvent } from "@/types";
 import { getMapName } from "@/data/maps-registry";
 import { getEventTypeLabel } from "@/lib/event-type-labels";
+import { getNextOccurrence, formatCountdown } from "@/lib/time-utils";
 import { clsx } from "clsx";
 
 const DRAWER_WIDTH_PX = 380;
@@ -14,6 +15,8 @@ export const EVENT_DETAILS_DRAWER_WIDTH = 400;
 
 interface EventDetailsDrawerProps {
   event: GameEvent | null;
+  /** Fecha/hora actual para el countdown de este evento */
+  now: Date;
   onClose: () => void;
   /** Si true, el drawer no usa fixed y rellena el contenedor (layout de 3 columnas) */
   isStatic?: boolean;
@@ -33,6 +36,7 @@ interface EventDetailsDrawerProps {
  */
 export function EventDetailsDrawer({
   event,
+  now,
   onClose,
   isStatic,
   onGoToMap,
@@ -92,9 +96,16 @@ export function EventDetailsDrawer({
           >
             {getEventTypeLabel(event.type)}
           </span>
-          <h2 className="mt-2 text-3xl font-black leading-tight text-white mb-2">
+          <h2 className="mt-2 text-3xl font-black leading-tight text-white">
             {event.title}
           </h2>
+          {event.schedule ? (
+            <p className="mt-1.5 font-mono text-sm tabular-nums text-muted" aria-live="polite" suppressHydrationWarning>
+              Próximo: {formatCountdown(now, getNextOccurrence(event, now))}
+            </p>
+          ) : (
+            <p className="mt-1.5 text-sm text-muted">Sin horario</p>
+          )}
         </div>
         <button
           type="button"

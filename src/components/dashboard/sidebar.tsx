@@ -10,7 +10,10 @@ import { SearchBar } from "./search-bar";
 
 interface SidebarProps {
   events: GameEvent[];
+  /** Evento seleccionado (o displayEvent: seleccionado ?? próximo principal) para zoom y "en otra zona" */
   selectedEvent: GameEvent | null;
+  /** Próximo evento principal: siempre se muestra su countdown y título en "Próximo evento principal" */
+  nextMainEvent: GameEvent | null;
   onSelectEvent: (event: GameEvent) => void;
   /** Fecha/hora actual para countdown y orden */
   now: Date;
@@ -50,6 +53,7 @@ function collapseByListGroup(events: GameEvent[], activeMapId: string): GameEven
 export function Sidebar({
   events,
   selectedEvent,
+  nextMainEvent,
   onSelectEvent,
   now,
   activeMapId,
@@ -90,15 +94,15 @@ export function Sidebar({
   const selectedIsInOtherZone =
     selectedEvent != null && selectedEvent.mapId !== activeMapId;
 
-  const nextOccurrence = selectedEvent?.schedule
-    ? getNextOccurrence(selectedEvent, now)
+  const nextMainOccurrence = nextMainEvent?.schedule
+    ? getNextOccurrence(nextMainEvent, now)
     : null;
-  const countdownLabel =
-    selectedEvent == null
+  const countdownMainLabel =
+    nextMainEvent == null
       ? "—"
-      : !selectedEvent.schedule
+      : !nextMainEvent.schedule
         ? "Sin horario"
-        : formatCountdown(now, nextOccurrence!);
+        : formatCountdown(now, nextMainOccurrence!);
 
   const nextDailyEvent = useMemo(() => getNextDailyEvent(events, now), [events, now]);
   const nextDailyOccurrence = nextDailyEvent?.schedule
@@ -123,11 +127,11 @@ export function Sidebar({
           aria-live="polite"
           suppressHydrationWarning
         >
-          {countdownLabel}
+          {countdownMainLabel}
         </p>
-        {selectedEvent && (
+        {nextMainEvent && (
           <p className="mt-2 truncate text-lg font-medium text-white/90">
-            {selectedEvent.title}
+            {nextMainEvent.title}
           </p>
         )}
         {selectedIsInOtherZone && (
@@ -137,7 +141,7 @@ export function Sidebar({
           </p>
         )}
         <div className="mt-2 flex gap-2">
-          {selectedEvent && (
+          {(selectedEvent ?? nextMainEvent) && (
             <button
               type="button"
               onClick={onZoomRequest}
