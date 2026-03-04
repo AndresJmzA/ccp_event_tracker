@@ -48,8 +48,8 @@ export const EVENTS: GameEvent[] = [
       "- En la sala de espera se pueden comprar pots\n- Puedes abrir los almacenes remotos si tienes VIP\n- Cuando entran a la partida, entran en pk, cambien a grupo\n- Los waters no pueden revivir aliados",
     type: "MAIN",
     mapId: "twin_city_map",
-    location: { x: 999, y: 755.6303540885767 },
-    gameCoordinates: "451, 251",
+    location: { x: 1003, y: 745.6303540885767 },
+    gameCoordinates: "455, 241",
     schedule: {
       type: "recurring",
       intervalMinutes: 10080,
