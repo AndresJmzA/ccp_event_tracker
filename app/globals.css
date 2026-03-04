@@ -1,26 +1,97 @@
 @import "tailwindcss";
 
+/* ============================================
+   GameEventTracker - Design Tokens
+   Paleta semántica (sin colores por defecto de Tailwind)
+   ============================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0f1116;
+  --surface: #171920;
+  --muted: #686d7c;
+  --foreground: #ffffff;
+  --primary: #a23e2f;
+  --primary-light: #ba6356;
+  --accent-gradient: linear-gradient(to right, #a23e2f 0%, #ba6356 100%);
 }
 
 @theme inline {
+  /* Colores semánticos → utilidades (bg-background, text-foreground, etc.) */
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+
+  /* Gradiente para botones destacados / barras de progreso */
+  --background-image-accent-gradient: var(--accent-gradient);
+
+  /* Fuentes (opcional) */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Marcadores del mapa: pequeños para no tapar el detalle (Leaflet divIcon fuera de Tailwind) */
+.marker-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  border: 1px solid var(--foreground);
+  box-shadow: 0 0 0 0 var(--primary);
+}
+
+/* Marcador activo: un poco mayor, borde primary, encima del resto, ping sutil */
+.marker-icon-wrapper--selected {
+  z-index: 100;
+}
+.marker-dot--selected {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 0 0 var(--primary), 0 0 4px rgba(162, 62, 47, 0.4);
+  animation: marker-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes marker-ping {
+  75%, 100% {
+    box-shadow: 0 0 0 6px rgba(162, 62, 47, 0), 0 0 4px rgba(162, 62, 47, 0.2);
+  }
+}
+
+/* Controles del mapa Leaflet: acorde al tema (surface, foreground, primary) */
+.leaflet-control-zoom.leaflet-bar {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+.leaflet-control-zoom a {
+  background: var(--surface) !important;
+  color: var(--foreground) !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  width: 34px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  font-size: 18px !important;
+  font-weight: 600;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.leaflet-control-zoom a:last-child {
+  border-bottom: none !important;
+}
+.leaflet-control-zoom a:hover {
+  background: var(--primary) !important;
+  color: var(--foreground) !important;
+}
+.leaflet-control-zoom a.leaflet-disabled {
+  background: var(--surface) !important;
+  color: var(--muted) !important;
+  cursor: default;
 }
