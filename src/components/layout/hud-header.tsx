@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { format } from "date-fns";
 import { ChevronDown } from "lucide-react";
 import { getMapList, getMapName } from "@/data/maps-registry";
+import { SERVER_TIMEZONE } from "@/lib/time-utils";
 
 interface HudHeaderProps {
   /** Fecha/hora actual (se actualiza cada segundo desde el padre) */
@@ -20,9 +21,6 @@ interface HudHeaderProps {
  * Barra superior: selector de zona (atlas), relojes LOC/SVR.
  * Dropdown con estilo HUD (fondo oscuro, borde sutil).
  */
-/** Zona horaria del servidor: UTC-5 (ej. Colombia, Perú, EST) */
-const SERVER_TIMEZONE = "America/Bogota";
-
 export function HudHeader({ now, activeMapId, onMapChange, isStatic }: HudHeaderProps) {
   const localTime = format(now, "HH:mm:ss");
   const serverTime = now.toLocaleTimeString("es-ES", {

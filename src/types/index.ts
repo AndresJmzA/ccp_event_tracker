@@ -61,7 +61,7 @@ export interface RecurringSchedule {
 
 /**
  * Programa mensual: un día concreto de cada mes a una hora (ej. día 1 a las 20:00).
- * La hora se interpreta en la zona horaria del servidor (America/Bogota).
+ * La hora se interpreta en la zona horaria del servidor (America/New_York, con horario de verano).
  */
 export interface MonthlySchedule {
   type: "monthly";
@@ -73,7 +73,7 @@ export interface MonthlySchedule {
 
 /**
  * Programa por slots semanales: varios horarios por día en días concretos de la semana.
- * Las horas se interpretan en la zona horaria del servidor (America/Bogota).
+ * Las horas se interpretan en la zona horaria del servidor (America/New_York, con horario de verano).
  */
 export interface WeeklySlotsSchedule {
   type: "weeklySlots";

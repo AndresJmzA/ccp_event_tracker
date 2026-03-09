@@ -97,7 +97,7 @@ export const EVENTS: GameEvent[] = [
       "Cada clase tiene su propia guerra PK una vez por semana. Hay dos rondas por clase, comenzando a las 19:00 (hora del servidor).\n\nSolo competirás contra personajes de tu misma clase, lo que hace que el torneo sea una verdadera prueba de habilidad y poder individual.",
     notes:
       "- Horario: todos los días a las 19:00 (hora del servidor)\n- Lunes → Trojans | Martes → Warriors | Miércoles → Archers | Jueves → Fire Taoists | Viernes → Water Taoists\n- Entrada: PremioPKNPC (Twin City 436,243)\n- Premios 0-99: 215 CPs y 1 EXP Ball\n- Premios 100-119: 390 CPs y 3 EXP Balls\n- Premios 120-129: 510 CPs y 5 EXP Balls\n- Premios 130+: 730 CPs y 10 EXP Balls + TOP\n- Los enemigos suelen matar fuera del evento para no dejarte entrar, intenta estar puntual y bajo un guardia\n- Ayuda a los de tu clan y aliados a eliminar a los otros personajes, despues, ponganse de acuerdo para la reparticion del premio",
-    type: "DAILY",
+    type: "MAIN",
     mapId: "twin_city_map",
     location: { x: 1111.5, y: 780.7864369154627 },
     gameCoordinates: "436, 243",

@@ -52,6 +52,7 @@ function ImageOverlaysWhenReady({
   const map = useMap();
   const [mapReady, setMapReady] = useState(false);
   const [overlaysReady, setOverlaysReady] = useState(false);
+  const [allowOverlayMount, setAllowOverlayMount] = useState(false);
   const [gridImagesLoaded, setGridImagesLoaded] = useState(false);
   const [isZooming, setIsZooming] = useState(false);
 
@@ -137,7 +138,18 @@ function ImageOverlaysWhenReady({
     isMapVisible && mapReady && overlaysReady && paneSafe && mapInDom
   );
 
-  if (!safeToRender) return null;
+  useEffect(() => {
+    if (!safeToRender) {
+      setAllowOverlayMount(false);
+      return;
+    }
+    const rafId = requestAnimationFrame(() => {
+      setAllowOverlayMount(true);
+    });
+    return () => cancelAnimationFrame(rafId);
+  }, [safeToRender]);
+
+  if (!safeToRender || !allowOverlayMount) return null;
 
   if (source.type === "single") {
     return (
